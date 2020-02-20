@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ListViewXamarin"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
+             x:Class="ListViewXamarin.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:CustomComparer x:Key="comparer"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <local:ViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <syncfusion:SfListView ItemsSource="{Binding PersonList}" 
+                               ItemSize="70" x:Name="listView">
+
+            <syncfusion:SfListView.DataSource>
+                <data:DataSource LiveDataUpdateMode="AllowDataShaping">
+                    <data:DataSource.SortDescriptors>
+                        <data:SortDescriptor PropertyName="AllergyType" 
+                                             Comparer="{StaticResource comparer}"/>
+                    </data:DataSource.SortDescriptors>
+                </data:DataSource>
+            </syncfusion:SfListView.DataSource>
+
+            <syncfusion:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Name}"/>
+                        <Label Text="{Binding AllergyType}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
+    </ContentPage.Content>
+
+</ContentPage>
